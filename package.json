@@ -1,0 +1,55 @@
+{
+  "name": "@lai-dai/atom-with-storage-v2",
+  "version": "0.0.5",
+  "description": "atom with storage v2",
+  "private": false,
+  "scripts": {
+    "build": "tsup ./src"
+  },
+  "homepage": "https://github.com/lai-dai/atom-with-storage-v2",
+  "url": "https://github.com/lai-dai/atom-with-storage-v2/issue",
+  "email": "laidai9966@gmail.com",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lai-dai/atom-with-storage-v2.git"
+  },
+  "keywords": [
+    "jotai",
+    "atom",
+    "react",
+    "storage",
+    "atomWithStorage",
+    "atomWithStorageV2"
+  ],
+  "author": "lai dai",
+  "license": "ISC",
+  "devDependencies": {
+    "jotai": "^2.8.0",
+    "react": "^18.3.1",
+    "tsup": "^6.7.0",
+    "typescript": "^5.1.3"
+  },
+  "files": [
+    "dist",
+    "dist",
+    "package.json"
+  ],
+  "exports": {
+    ".": {
+      "require": "./dist/index.js",
+      "import": "./dist/index.mjs",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "peerDependencies": {
+    "react": "^18",
+    "valtio": "^1.13.2"
+  }
+}
