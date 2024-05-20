@@ -1,44 +1,41 @@
-# npm-package-template-tsup
-This is a template package to publish npm package with typescript and tsup.
+# atomWithStorageV2
 
-## tsup
-Bundle your TypeScript library with no config, powered by esbuild.
+## Install
 
-https://tsup.egoist.dev/
-
-## how to use this
-1. install dependencies
 ```
-# pnpm
-$ pnpm install
-
-# yarn
-$ yarn
-
-# npm
-$ npm install
-```
-2. add your code to `src`
-3. add export statement to `src/index.ts`
-4. test build command to build `src`.
-once the command works properly, you will see `dist` folder.
-
-```zsh
-# pnpm
-$ pnpm run build
-
-# yarn
-$ yarn build
-
-# npm
-$ npm run build
-```
-5. publish your package
-
-```zsh
-$ npm publish
+npm i github:lai-dai/atom-with-storage-v2
 ```
 
+## Usage
 
-## test package
-https://www.npmjs.com/package/npm-template-with-tsup
+```js
+import { atomWithStorageV2, createJSONStorage } from "@lai-dai/atom-with-storage-v2";
+import lzString from 'lz-string'
+
+const compressLZW = (data: Record<string, any> | string) => {
+  if (typeof data === 'object') {
+    return lzString.compressToEncodedURIComponent(JSON.stringify(data))
+  }
+
+  return lzString.compressToEncodedURIComponent(data)
+}
+
+const decompressLZW = (compressed: string) =>
+  lzString.decompressFromEncodedURIComponent(compressed)
+
+export const atomStorage = createJSONStorage<any>(
+  () =>
+    (typeof window !== 'undefined' ? window.localStorage : undefined) as any,
+  {
+    serialize: (data) => compressLZW(JSON.stringify(data)),
+    deserialize: (data) => JSON.parse(decompressLZW(data)),
+  }
+)
+
+const sessionAtom = atomWithStorageV2(
+  "offline_cache",
+  "foo",
+  atomStorage as any,
+  { getOnInit: true }
+);
+```
